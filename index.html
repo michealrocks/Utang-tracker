@@ -8,36 +8,50 @@
 </head>
 <body>
   <div class="tabs">
-    <button onclick="showTab('tracker')">Debt Tracker</button>
-    <button onclick="showTab('manageItems')">Manage Items</button>
+    <button onclick="switchTab('tracker')">Debt Tracker</button>
+    <button onclick="switchTab('items')">Manage Items</button>
+    <button onclick="switchTab('debtors')">Debtor List</button>
   </div>
 
-  <div id="tracker" class="tab-content">
-    <h1>Debt Tracker</h1>
+  <div id="tracker" class="tab active">
+    <h2>Debt Tracker</h2>
     <div class="form-section">
-      <input type="text" id="name" placeholder="Debtor's Name" />
+      <label for="debtorSelect">Select Debtor:</label>
+      <select id="debtorSelect"></select>
+
+      <label for="itemSelect">Item:</label>
       <select id="itemSelect"></select>
+
       <input type="number" id="quantity" placeholder="Quantity" />
       <button onclick="addDebt()">Add Debt</button>
     </div>
 
-    <div class="view-section">
-      <h2>Unpaid Debts</h2>
-      <div id="unpaidList"></div>
-
-      <h2>Paid Debts</h2>
-      <div id="paidList"></div>
+    <div class="filters">
+      <button onclick="filterDebts('all')">All</button>
+      <button onclick="filterDebts('paid')">Paid</button>
+      <button onclick="filterDebts('unpaid')">Unpaid</button>
     </div>
+
+    <div id="debtList"></div>
   </div>
 
-  <div id="manageItems" class="tab-content" style="display:none">
-    <h1>Manage Items</h1>
+  <div id="items" class="tab">
+    <h2>Manage Items</h2>
     <div class="form-section">
       <input type="text" id="itemName" placeholder="Item Name" />
-      <input type="number" id="itemPrice" placeholder="Item Price" />
+      <input type="number" id="itemPrice" placeholder="Price (₱)" />
       <button onclick="addItem()">Add Item</button>
     </div>
     <div id="itemList"></div>
+  </div>
+
+  <div id="debtors" class="tab">
+    <h2>Debtor List</h2>
+    <div class="form-section">
+      <input type="text" id="newDebtorName" placeholder="New Debtor Name" />
+      <button onclick="addDebtor()">Add Debtor</button>
+    </div>
+    <ul id="debtorList"></ul>
   </div>
 
   <script src="script.js"></script>
