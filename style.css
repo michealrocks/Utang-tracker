@@ -5,7 +5,18 @@ body {
   padding: 20px;
 }
 
-.container {
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.container, .tab-content {
   max-width: 800px;
   margin: auto;
   background: white;
@@ -24,7 +35,7 @@ body {
   margin-top: 30px;
 }
 
-.debt-entry {
+.debt-entry, .item-entry {
   display: flex;
   justify-content: space-between;
   background: #eee;
