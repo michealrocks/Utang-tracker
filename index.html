@@ -7,9 +7,13 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Debt Tracker</h1>
+  <div class="tabs">
+    <button onclick="showTab('tracker')">Debt Tracker</button>
+    <button onclick="showTab('manageItems')">Manage Items</button>
+  </div>
 
+  <div id="tracker" class="tab-content">
+    <h1>Debt Tracker</h1>
     <div class="form-section">
       <input type="text" id="name" placeholder="Debtor's Name" />
       <select id="itemSelect"></select>
@@ -24,6 +28,16 @@
       <h2>Paid Debts</h2>
       <div id="paidList"></div>
     </div>
+  </div>
+
+  <div id="manageItems" class="tab-content" style="display:none">
+    <h1>Manage Items</h1>
+    <div class="form-section">
+      <input type="text" id="itemName" placeholder="Item Name" />
+      <input type="number" id="itemPrice" placeholder="Item Price" />
+      <button onclick="addItem()">Add Item</button>
+    </div>
+    <div id="itemList"></div>
   </div>
 
   <script src="script.js"></script>
