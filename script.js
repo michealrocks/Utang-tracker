@@ -1,97 +1,45 @@
-let debts = JSON.parse(localStorage.getItem("debts")) || [];
-let items = [
-  { name: "Rice", price: 50 },
-  { name: "Oil", price: 100 },
-  { name: "Eggs", price: 8 }
-];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Debt Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="tabs">
+    <button onclick="showTab('tracker')">Debt Tracker</button>
+    <button onclick="showTab('manageItems')">Manage Items</button>
+  </div>
 
-function saveToLocalStorage() {
-  localStorage.setItem("debts", JSON.stringify(debts));
-}
+  <div id="tracker" class="tab-content">
+    <h1>Debt Tracker</h1>
+    <div class="form-section">
+      <input type="text" id="name" placeholder="Debtor's Name" />
+      <select id="itemSelect"></select>
+      <input type="number" id="quantity" placeholder="Quantity" />
+      <button onclick="addDebt()">Add Debt</button>
+    </div>
 
-function loadItemDropdown() {
-  const itemSelect = document.getElementById("itemSelect");
-  itemSelect.innerHTML = "";
-  items.forEach(item => {
-    const option = document.createElement("option");
-    option.value = item.name;
-    option.textContent = `${item.name} (₱${item.price})`;
-    itemSelect.appendChild(option);
-  });
-}
+    <div class="view-section">
+      <h2>Unpaid Debts</h2>
+      <div id="unpaidList"></div>
 
-function addDebt() {
-  const name = document.getElementById("name").value.trim();
-  const itemName = document.getElementById("itemSelect").value;
-  const quantity = parseInt(document.getElementById("quantity").value);
+      <h2>Paid Debts</h2>
+      <div id="paidList"></div>
+    </div>
+  </div>
 
-  if (!name || !itemName || !quantity || quantity <= 0) {
-    alert("Please fill out all fields correctly.");
-    return;
-  }
+  <div id="manageItems" class="tab-content" style="display:none">
+    <h1>Manage Items</h1>
+    <div class="form-section">
+      <input type="text" id="itemName" placeholder="Item Name" />
+      <input type="number" id="itemPrice" placeholder="Item Price" />
+      <button onclick="addItem()">Add Item</button>
+    </div>
+    <div id="itemList"></div>
+  </div>
 
-  const item = items.find(i => i.name === itemName);
-  const total = item.price * quantity;
-
-  const newDebt = {
-    id: Date.now(),
-    name,
-    item: itemName,
-    quantity,
-    price: item.price,
-    total,
-    date: new Date().toLocaleString(),
-    paid: false
-  };
-
-  debts.push(newDebt);
-  saveToLocalStorage();
-  renderDebts();
-
-  document.getElementById("name").value = "";
-  document.getElementById("quantity").value = "";
-}
-
-function togglePaid(id) {
-  const debt = debts.find(d => d.id === id);
-  if (debt) {
-    debt.paid = !debt.paid;
-    saveToLocalStorage();
-    renderDebts();
-  }
-}
-
-function deleteDebt(id) {
-  debts = debts.filter(d => d.id !== id);
-  saveToLocalStorage();
-  renderDebts();
-}
-
-function renderDebts() {
-  const unpaidList = document.getElementById("unpaidList");
-  const paidList = document.getElementById("paidList");
-
-  unpaidList.innerHTML = "";
-  paidList.innerHTML = "";
-
-  debts.forEach(debt => {
-    const div = document.createElement("div");
-    div.className = "debt-entry";
-    div.innerHTML = `
-      <div>
-        <strong>${debt.name}</strong> - ${debt.quantity}x ${debt.item} @ ₱${debt.price} = ₱${debt.total}<br/>
-        <small>${debt.date}</small>
-      </div>
-      <div>
-        <button onclick="togglePaid(${debt.id})">${debt.paid ? "Unpay" : "Pay"}</button>
-        <button onclick="deleteDebt(${debt.id})">Delete</button>
-      </div>
-    `;
-
-    if (debt.paid) paidList.appendChild(div);
-    else unpaidList.appendChild(div);
-  });
-}
-
-loadItemDropdown();
-renderDebts();
+  <script src="script.js"></script>
+</body>
+</html>
