@@ -7,29 +7,23 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="tabs">
-    <button onclick="switchTab('debt-tab')" class="active-tab">Debt Manager</button>
-    <button onclick="switchTab('items-tab')">Manage Items</button>
-  </div>
+  <div class="container">
+    <h1>Debt Tracker</h1>
 
-  <div id="debt-tab" class="tab-content active">
-    <form id="debtForm">
-      <input type="text" id="debtorName" placeholder="Debtor's Name" required />
-      <select id="itemSelect" required></select>
-      <input type="number" id="quantity" placeholder="Quantity" min="1" required />
-      <button type="submit">Add Debt</button>
-    </form>
-    <div id="paidSection"><h3>Paid</h3></div>
-    <div id="unpaidSection"><h3>Unpaid</h3></div>
-  </div>
+    <div class="form-section">
+      <input type="text" id="name" placeholder="Debtor's Name" />
+      <select id="itemSelect"></select>
+      <input type="number" id="quantity" placeholder="Quantity" />
+      <button onclick="addDebt()">Add Debt</button>
+    </div>
 
-  <div id="items-tab" class="tab-content">
-    <form id="itemForm">
-      <input type="text" id="itemName" placeholder="Item Name" required />
-      <input type="number" id="itemPrice" placeholder="Price (₱)" min="0" required />
-      <button type="submit">Add Item</button>
-    </form>
-    <div id="itemList"></div>
+    <div class="view-section">
+      <h2>Unpaid Debts</h2>
+      <div id="unpaidList"></div>
+
+      <h2>Paid Debts</h2>
+      <div id="paidList"></div>
+    </div>
   </div>
 
   <script src="script.js"></script>
